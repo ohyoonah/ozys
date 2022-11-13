@@ -78,8 +78,8 @@ const Dropdown = () => {
     <MenuBlock ref={ref}>
       <ButtonBlock onClick={onClick}>{isOpen ? "Close" : "Open"}</ButtonBlock>
       <DropDownBlock isOpen={isOpen}>
-        {dropData.map((data: IDropData) => (
-          <li onClick={() => onLiClick(data)}>
+        {dropData.map((data: IDropData, index) => (
+          <li key={index} onClick={() => onLiClick(data)}>
             <img src={data.token_image} alt={data.token_name} />
             <span>{data.token_name}</span>
           </li>
