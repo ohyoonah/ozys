@@ -1,4 +1,4 @@
-export const dropData = [
+export const items = [
   {
     token_image: "https://s.ozys.io/bridge/orbitBridge/icon/ORC.png",
     token_name: "ORC",
