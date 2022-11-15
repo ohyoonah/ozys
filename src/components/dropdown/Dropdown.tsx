@@ -1,29 +1,21 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-import { items } from "../../data/items";
-import { isOpenState, isPopupState } from "../../atom/drop";
 import Popup from "../popup/Popup";
+import { items } from "../../data/items";
+import {
+  Popups,
+  Items,
+  itemState,
+  isOpenState,
+  isPopupState,
+} from "../../atom/drop";
 import { MenuBlock, ButtonBlock, DropDownBlock } from "../../styles/dropStyle";
-
-export interface Items {
-  token_image: string;
-  token_name: string;
-  token_price: number;
-}
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useRecoilState<boolean>(isOpenState);
-  const [isPopupOpen, setIsPopupOpen] = useRecoilState<boolean>(isPopupState);
-  const [menus, setMenus] = useState<{
-    token_image: string;
-    token_name: string;
-    token_price: number;
-  }>({
-    token_image: "",
-    token_name: "",
-    token_price: 0,
-  });
+  const [isPopupOpen, setIsPopupOpen] = useRecoilState<Popups>(isPopupState);
+  const [menus, setMenus] = useRecoilState<Items>(itemState);
 
   const ref = useRef<HTMLDivElement>(null);
 
@@ -41,11 +33,11 @@ const Dropdown = () => {
 
   const onClick = () => {
     setIsOpen((prev) => !prev);
-    setIsPopupOpen(false);
+    setIsPopupOpen((state) => ({ ...state, firstPopup: false }));
   };
 
   const onItemClick = (data: Items) => {
-    setIsPopupOpen(true);
+    setIsPopupOpen((state) => ({ ...state, firstPopup: true }));
     setMenus(data);
   };
 
@@ -59,7 +51,7 @@ const Dropdown = () => {
               <img src={data.token_image} alt={data.token_name} />
               <span>{data.token_name}</span>
             </li>
-            {isPopupOpen && <Popup menus={menus} />}
+            {isPopupOpen.firstPopup && <Popup menus={menus} />}
           </>
         ))}
       </DropDownBlock>
