@@ -1,19 +1,9 @@
 import { useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import styled from "styled-components";
 
 import { isPopupState, Popups } from "../../atom/drop";
 import { PopupBlock, Overlay } from "../../styles/popupStyle";
-
-const SecondPopupBlock = styled(PopupBlock)`
-  width: 500px;
-  height: 250px;
-`;
-
-const ThirdPopupBlock = styled(PopupBlock)`
-  width: 200px;
-  height: 350px;
-`;
+import { ButtonBlock } from "../../styles/buttonStyle";
 
 const Popup = ({ menus }) => {
   const [isPopupOpen, setIsPopupOpen] = useRecoilState<Popups>(isPopupState);
@@ -53,70 +43,65 @@ const Popup = ({ menus }) => {
     <>
       <Overlay ref={firstRef} />
       <PopupBlock>
-        <img src={menus.token_image} alt="test" />
-        <p>{menus.token_name}</p>
-        <p>${menus.token_price}</p>
-        <button
-          className="open"
+        <img src={menus.token_image} alt="token" />
+        <span className="tokenName">{menus.token_name}</span>
+        <span>${menus.token_price}</span>
+        <ButtonBlock
           onClick={() =>
             setIsPopupOpen((state) => ({ ...state, secondPopup: true }))
           }
         >
           팝업 추가
-        </button>
+        </ButtonBlock>
         <button
           className="close"
           onClick={() =>
             setIsPopupOpen((state) => ({ ...state, firstPopup: false }))
           }
         >
-          닫기
+          X
         </button>
       </PopupBlock>
       {isPopupOpen.secondPopup && (
         <>
           <Overlay ref={secondRef} />
-          <SecondPopupBlock>
-            <p>두 번째 팝업</p>
-            <button
-              className="open"
+          <PopupBlock>
+            <span className="popupText">두 번째 팝업</span>
+            <ButtonBlock
               onClick={() =>
                 setIsPopupOpen((state) => ({ ...state, thirdPopup: true }))
               }
             >
               팝업 추가
-            </button>
+            </ButtonBlock>
             <button
               className="close"
               onClick={() =>
                 setIsPopupOpen((state) => ({ ...state, secondPopup: false }))
               }
             >
-              닫기
+              X
             </button>
-          </SecondPopupBlock>
+          </PopupBlock>
         </>
       )}
       {isPopupOpen.thirdPopup && (
         <>
           <Overlay ref={thirdRef} />
-          <ThirdPopupBlock>
-            <p>세 번째 팝업</p>
-            <button
-              className="open"
-              onClick={() => alert("팝업은 최대 세 개입니다.")}
-            >
+          <PopupBlock>
+            <span className="popupText">세 번째 팝업</span>
+            <ButtonBlock onClick={() => alert("팝업은 최대 세 개입니다.")}>
               팝업 추가
-            </button>
+            </ButtonBlock>
             <button
               className="close"
               onClick={() =>
                 setIsPopupOpen((state) => ({ ...state, thirdPopup: false }))
               }
             >
-              닫기
+              X
             </button>
-          </ThirdPopupBlock>
+          </PopupBlock>
         </>
       )}
     </>

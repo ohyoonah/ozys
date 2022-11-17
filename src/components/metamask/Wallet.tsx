@@ -1,17 +1,11 @@
 import { useEffect, useCallback } from "react";
-import styled from "styled-components";
-import { PopupBlock, Overlay } from "../../styles/popupStyle";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { popupState, walletState, IWallet } from "../../atom/meta";
+import { Overlay } from "../../styles/popupStyle";
+import { WalletBlock } from "../../styles/metaMaskStyle";
+import { ButtonBlock } from "../../styles/buttonStyle";
 
-const WalletBlock = styled(PopupBlock)`
-  width: 500px;
-  button {
-    width: 100%;
-  }
-`;
-
-const Wallet = ({ switchNetwork }) => {
+const Wallet = () => {
   const [wallet, setWallet] = useRecoilState<IWallet>(walletState);
   const setIsOpen = useSetRecoilState<boolean>(popupState);
 
@@ -51,11 +45,17 @@ const Wallet = ({ switchNetwork }) => {
     <>
       <Overlay />
       <WalletBlock>
-        <p>주소: {wallet.account}</p>
-        <p>잔액: {wallet.balance} ETH</p>
-        <p>네트워크: {wallet.chainId}</p>
-        <div onClick={switchNetwork}>click</div>
-        <button onClick={() => setIsOpen(false)}>닫기</button>
+        <span className="account">
+          <b>주소:</b> {wallet.account}
+        </span>
+        <span className="balance">
+          <b>잔액:</b> {wallet.balance} ETH
+        </span>
+        <span className="chain">
+          <b>네트워크:</b> {wallet.chainId}
+        </span>
+        {/* <div onClick={switchNetwork}>click</div> */}
+        <ButtonBlock onClick={() => setIsOpen(false)}>닫기</ButtonBlock>
       </WalletBlock>
     </>
   );

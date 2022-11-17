@@ -10,7 +10,11 @@ import {
   isOpenState,
   isPopupState,
 } from "../../atom/drop";
-import { MenuBlock, ButtonBlock, DropDownBlock } from "../../styles/dropStyle";
+import {
+  MenuBlock,
+  ToggleButtonBlock,
+  DropDownBlock,
+} from "../../styles/dropStyle";
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useRecoilState<boolean>(isOpenState);
@@ -43,7 +47,10 @@ const Dropdown = () => {
 
   return (
     <MenuBlock ref={ref}>
-      <ButtonBlock onClick={onClick}>{isOpen ? "Close" : "Open"}</ButtonBlock>
+      <ToggleButtonBlock onClick={onClick} isOpen={isOpen}>
+        <span>{isOpen ? "Close" : "Open"}</span>
+        <span className="arrow">▼</span>
+      </ToggleButtonBlock>
       <DropDownBlock isOpen={isOpen}>
         {items.map((data: Items, index) => (
           <>

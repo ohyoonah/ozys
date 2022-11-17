@@ -3,10 +3,10 @@ import MetaMask from "./components/metamask/MetaMask";
 
 const App = () => {
   return (
-    <div>
-      <MetaMask />
+    <>
       <DropDownPage />
-    </div>
+      <MetaMask />
+    </>
   );
 };
 
