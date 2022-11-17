@@ -1,12 +1,12 @@
 import { atom } from "recoil";
 
 export interface IWallet {
-  address: string;
-  balance: number;
-  chainId: number;
+  account?: string;
+  balance?: number;
+  chainId?: number;
 }
 
-export const popupState = atom({
+export const popupState = atom<boolean>({
   key: "isOpen",
   default: false,
 });
@@ -14,8 +14,8 @@ export const popupState = atom({
 export const walletState = atom<IWallet>({
   key: "wallet",
   default: {
-    address: undefined,
-    balance: undefined,
-    chainId: undefined,
+    account: "",
+    balance: 0,
+    chainId: 0,
   },
 });

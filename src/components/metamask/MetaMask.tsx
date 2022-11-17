@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from "react";
-import { useRecoilState } from "recoil";
+import { useState, useCallback } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { ethers } from "ethers";
 import { popupState, walletState, IWallet } from "../../atom/meta";
 import Wallet from "./Wallet";
@@ -8,27 +8,9 @@ const MetaMask = () => {
   const [provider, setProvider] = useState(undefined);
   const [signer, setSigner] = useState(undefined);
   const [isOpen, setIsOpen] = useRecoilState(popupState);
-  const [wallet, setWallet] = useRecoilState<IWallet>(walletState);
+  const setWallet = useSetRecoilState<IWallet>(walletState);
 
-  const connectWallet = useCallback(async () => {
-    try {
-      if (typeof window.ethereum !== "undefined") {
-        console.log("MetaMask is installed!");
-        getMetamaskData();
-      } else {
-        alert("메타마스크를 설치해 주세요");
-      }
-    } catch (e) {
-      console.error(e);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (wallet.chainId === 1) alert("이더리움 메인넷에 연결되었습니다.");
-    getWalletData(signer);
-  }, [wallet.chainId, signer]);
-
-  const getProvider = async () => {
+  const getProvider = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     setProvider(provider);
     return provider;
@@ -36,24 +18,57 @@ const MetaMask = () => {
 
   const getSigner = async (provider: any) => {
     await provider.send("eth_requestAccounts", []);
-    const signer = provider.getSigner();
+    const signer = await provider.getSigner();
     setSigner(signer);
     return signer;
   };
 
-  const getWalletData = async (signer: any) => {
-    const result = await Promise.all([
-      signer.getAddress(),
-      signer.getBalance(),
-      signer.getChainId(),
-    ]);
-    setWallet({
-      address: result[0],
-      balance: Number(result[1]),
-      chainId: result[2],
-    });
-    setIsOpen(true);
-  };
+  const getWalletData = useCallback(
+    async (signer: any) => {
+      try {
+        const result = await Promise.all([
+          signer.getAddress(),
+          signer.getBalance(),
+          signer.getChainId(),
+        ]);
+        setWallet((wallet) => ({
+          ...wallet,
+          account: result[0],
+          balance: Number(ethers.utils.formatEther(result[1])),
+          chainId: result[2],
+        }));
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [setWallet]
+  );
+
+  const getMetamaskData = useCallback(async () => {
+    try {
+      const _provider = getProvider();
+      const _signer = await getSigner(_provider);
+      await getWalletData(_signer);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [getWalletData]);
+
+  const connectWallet = useCallback(async () => {
+    try {
+      if (typeof window.ethereum !== "undefined") {
+        await getMetamaskData();
+        setIsOpen(true);
+      } else {
+        alert("메타마스크를 설치해 주세요.");
+        window.open(
+          "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko"
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }, [getMetamaskData, setIsOpen]);
 
   const switchNetwork = useCallback(async () => {
     try {
@@ -86,13 +101,7 @@ const MetaMask = () => {
       }
       console.log(switchError);
     }
-  }, []);
-
-  const getMetamaskData = useCallback(async () => {
-    const _provider = await getProvider();
-    const _signer = await getSigner(_provider);
-    await getWalletData(_signer);
-  }, []);
+  }, [getMetamaskData]);
 
   return (
     <div>
