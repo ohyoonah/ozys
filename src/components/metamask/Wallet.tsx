@@ -54,7 +54,6 @@ const Wallet = () => {
         <span className="chain">
           <b>네트워크:</b> {wallet.chainId}
         </span>
-        {/* <div onClick={switchNetwork}>click</div> */}
         <ButtonBlock onClick={() => setIsOpen(false)}>닫기</ButtonBlock>
       </WalletBlock>
     </>
