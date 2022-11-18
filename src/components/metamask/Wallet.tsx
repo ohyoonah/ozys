@@ -9,14 +9,6 @@ const Wallet = () => {
   const [wallet, setWallet] = useRecoilState<IWallet>(walletState);
   const setIsOpen = useSetRecoilState<boolean>(popupState);
 
-  const onChangeAddress = useCallback(
-    (accounts: string) => {
-      accounts !== wallet.account &&
-        setWallet((wallet) => ({ ...wallet, account: accounts }));
-    },
-    [wallet.account, setWallet]
-  );
-
   const onChangeChainId = useCallback(
     (chainId: number) => {
       chainId !== wallet.chainId &&
@@ -33,6 +25,14 @@ const Wallet = () => {
       window.ethereum?.removeListener("chainChanged", onChangeChainId);
     };
   }, [wallet.chainId, onChangeChainId]);
+
+  const onChangeAddress = useCallback(
+    (accounts: string) => {
+      accounts !== wallet.account &&
+        setWallet((wallet) => ({ ...wallet, account: accounts }));
+    },
+    [wallet.account, setWallet]
+  );
 
   useEffect(() => {
     window.ethereum?.on("accountsChanged", onChangeAddress);
