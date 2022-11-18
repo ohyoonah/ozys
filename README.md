@@ -76,6 +76,11 @@ ozys
 └─ yarn.lock
 ```
 
+- **public**: 리드미에 사용된 이미지가 들어 있습니다.
+- **atoms**: `Recoil`을 사용해 전역 상태관리를 위한 디렉토리 입니다.
+- **components**: 드롭다운, 팝업, 지갑 컴포넌트들과 스타일 파일이 있습니다.
+- **data**: 드롭다운 리스트 아이템의 데이터를 작성했습니다.
+
 ---
 
 ## 프로젝트 결과
@@ -155,7 +160,7 @@ ozys
 
 > 설치 후
 
-<img src="./public/metamask_2.JPG" width="500" height="350"/>
+<img src="./public/metamask_2.JPG" width="500" height="400"/>
 
 - Metamask와의 연결을 위해 `ethers` 라이브러리를 사용했습니다.
 - `ehters.providers`를 통해 이더리움 노드를 연결하고 상태에 저장해 주었습니다.
@@ -163,6 +168,7 @@ ozys
 
 - 지갑 열기 버튼을 클릭하면 Metamask에서 현재 선택된 계정을 가져옵니다.
 - `window.ethereum`로 Metamask의 설치 여부를 확인해서 미설치 시 `alert` 창을 띄운 후 설치 페이지로 이동하도록 구현했습니다.
+- `Typescript`에서는 `ethereum` 타입을 바로 알 수 없기 때문에 `react-app-env.d.ts` 파일에 타입을 지정해 주었습니다.
 
 <br>
 
