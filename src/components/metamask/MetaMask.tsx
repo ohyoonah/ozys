@@ -1,13 +1,13 @@
 import { useState, useCallback } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { ethers } from "ethers";
-import { popupState, walletState, IWallet } from "../../atom/meta";
+import { popupState, walletState, IWallet } from "../../atoms/metaMaskState";
 import Wallet from "./Wallet";
-import { WalletButtonBlock } from "../../styles/metaMaskStyle";
+import { WalletButtonBlock } from "./metaMaskStyle";
 
 const MetaMask = () => {
-  const [provider, setProvider] = useState(undefined);
-  const [signer, setSigner] = useState(undefined);
+  const [provider, setProvider] = useState(null);
+  const [signer, setSigner] = useState(null);
   const [isOpen, setIsOpen] = useRecoilState(popupState);
   const setWallet = useSetRecoilState<IWallet>(walletState);
 

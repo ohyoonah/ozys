@@ -9,12 +9,8 @@ import {
   itemState,
   isOpenState,
   isPopupState,
-} from "../../atom/drop";
-import {
-  MenuBlock,
-  ToggleButtonBlock,
-  DropDownBlock,
-} from "../../styles/dropStyle";
+} from "../../atoms/dropState";
+import { MenuBlock, ToggleButtonBlock, DropDownBlock } from "./dropStyle";
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useRecoilState<boolean>(isOpenState);

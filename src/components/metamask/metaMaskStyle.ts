@@ -1,13 +1,10 @@
 import styled from "styled-components";
-import { PopupBlock } from "./popupStyle";
+import { PopupBlock } from "../popup/popupStyle";
 
 export const WalletButtonBlock = styled.button`
   width: 200px;
   height: 50px;
-  position: absolute;
-  left: 40%;
-  top: 50%;
-  transform: translate(-40%, -50%);
+  margin-right: 2rem;
   border: none;
   border-radius: 8px;
   background: var(--blue);

@@ -1,9 +1,9 @@
 import { useEffect, useCallback } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { popupState, walletState, IWallet } from "../../atom/meta";
-import { Overlay } from "../../styles/popupStyle";
-import { WalletBlock } from "../../styles/metaMaskStyle";
-import { ButtonBlock } from "../../styles/buttonStyle";
+import { popupState, walletState, IWallet } from "../../atoms/metaMaskState";
+import { Overlay } from "../popup/popupStyle";
+import { WalletBlock } from "./metaMaskStyle";
+import { ButtonBlock } from "../common/buttonStyle";
 
 const Wallet = () => {
   const [wallet, setWallet] = useRecoilState<IWallet>(walletState);

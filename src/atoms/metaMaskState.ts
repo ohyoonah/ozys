@@ -7,7 +7,7 @@ export interface IWallet {
 }
 
 export const popupState = atom<boolean>({
-  key: "isOpen",
+  key: "walletOpen",
   default: false,
 });
 

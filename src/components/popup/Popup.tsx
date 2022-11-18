@@ -1,9 +1,9 @@
 import { useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
-import { isPopupState, Popups } from "../../atom/drop";
-import { PopupBlock, Overlay } from "../../styles/popupStyle";
-import { ButtonBlock } from "../../styles/buttonStyle";
+import { isPopupState, Popups } from "../../atoms/dropState";
+import { PopupBlock, Overlay } from "./popupStyle";
+import { ButtonBlock } from "../common/buttonStyle";
 
 const Popup = ({ menus }) => {
   const [isPopupOpen, setIsPopupOpen] = useRecoilState<Popups>(isPopupState);
@@ -13,7 +13,7 @@ const Popup = ({ menus }) => {
   const thirdRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const onClickOutside = (e: MouseEvent) => {
+    const onClickInside = (e: MouseEvent) => {
       if (
         firstRef.current !== null &&
         firstRef.current.contains(e.target as Node)
@@ -33,9 +33,9 @@ const Popup = ({ menus }) => {
         setIsPopupOpen((state) => ({ ...state, thirdPopup: false }));
       }
     };
-    document.addEventListener("mousedown", onClickOutside);
+    document.addEventListener("mousedown", onClickInside);
     return () => {
-      document.removeEventListener("mousedown", onClickOutside);
+      document.removeEventListener("mousedown", onClickInside);
     };
   }, [firstRef, secondRef, thirdRef, setIsPopupOpen]);
 
