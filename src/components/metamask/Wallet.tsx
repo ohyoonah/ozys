@@ -1,12 +1,12 @@
 import { useEffect, useCallback } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { popupState, walletState, IWallet } from "../../atoms/metaMaskState";
+import { popupState, walletState, MyWallet } from "../../atoms/metaMaskState";
 import { Overlay } from "../popup/popupStyle";
 import { WalletBlock } from "./metaMaskStyle";
 import { ButtonBlock } from "../common/buttonStyle";
 
 const Wallet = () => {
-  const [wallet, setWallet] = useRecoilState<IWallet>(walletState);
+  const [wallet, setWallet] = useRecoilState<MyWallet>(walletState);
   const setIsOpen = useSetRecoilState<boolean>(popupState);
 
   const onChangeChainId = useCallback(

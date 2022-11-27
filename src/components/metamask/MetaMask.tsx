@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { ethers } from "ethers";
-import { popupState, walletState, IWallet } from "../../atoms/metaMaskState";
+import { popupState, walletState, MyWallet } from "../../atoms/metaMaskState";
 import Wallet from "./Wallet";
 import { WalletButtonBlock } from "./metaMaskStyle";
 
@@ -9,7 +9,7 @@ const MetaMask = () => {
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
   const [isOpen, setIsOpen] = useRecoilState(popupState);
-  const setWallet = useSetRecoilState<IWallet>(walletState);
+  const setWallet = useSetRecoilState<MyWallet>(walletState);
 
   const getProvider = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -17,15 +17,15 @@ const MetaMask = () => {
     return provider;
   };
 
-  const getSigner = async (provider: any) => {
+  const getSigner = async (provider: ethers.providers.Web3Provider) => {
     await provider.send("eth_requestAccounts", []);
-    const signer = await provider.getSigner();
+    const signer = provider.getSigner();
     setSigner(signer);
     return signer;
   };
 
   const getWalletData = useCallback(
-    async (signer: any) => {
+    async (signer: ethers.providers.JsonRpcSigner) => {
       try {
         const result = await Promise.all([
           signer.getAddress(),

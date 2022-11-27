@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export interface IWallet {
+export interface MyWallet {
   account?: string;
   balance?: number;
   chainId?: number;
@@ -11,7 +11,7 @@ export const popupState = atom<boolean>({
   default: false,
 });
 
-export const walletState = atom<IWallet>({
+export const walletState = atom<MyWallet>({
   key: "wallet",
   default: {
     account: "",
