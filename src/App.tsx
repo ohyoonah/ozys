@@ -3,9 +3,10 @@ import MetaMask from "./components/metamask/MetaMask";
 import styled from "styled-components";
 
 const MainBlock = styled.div`
-  margin-top: 100px;
   display: flex;
   justify-content: center;
+
+  margin-top: 100px;
 `;
 
 const App = () => {

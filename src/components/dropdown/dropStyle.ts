@@ -5,18 +5,23 @@ export const MenuBlock = styled.div`
 `;
 
 export const ToggleButtonBlock = styled.button<{ isOpen: boolean }>`
-  width: 200px;
-  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  width: 200px;
+  height: 50px;
   margin-bottom: 8px;
   padding: 0 1rem;
-  background: var(--light-gray);
+
   border: none;
   border-radius: 8px;
+
+  background: var(--light-gray);
+
   font-weight: 600;
   letter-spacing: 1px;
+
   cursor: pointer;
 
   &:hover {
@@ -25,27 +30,33 @@ export const ToggleButtonBlock = styled.button<{ isOpen: boolean }>`
 
   .arrow {
     color: var(--blue);
+
     transition: 0.125s all ease-in;
     transform: ${({ isOpen }) => isOpen && "rotate(180deg)"};
   }
 `;
 
 export const DropDownBlock = styled.ul<{ isOpen: boolean }>`
+  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  overflow-y: auto;
+
   width: 100%;
   height: calc(50px * 10);
   margin: 0;
   padding: 0;
-  background: var(--light-gray);
+
   border: 1px solid var(--dark-gray);
   border-radius: 8px;
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
-  overflow-y: auto;
+
+  background: var(--light-gray);
 
   li {
-    height: 50px;
     display: flex;
     align-items: center;
     list-style: none;
+
+    height: 50px;
+
     cursor: pointer;
 
     img {
@@ -66,7 +77,7 @@ export const DropDownBlock = styled.ul<{ isOpen: boolean }>`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--blue);
     border-radius: 8px;
+    background: var(--blue);
   }
 `;

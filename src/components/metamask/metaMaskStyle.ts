@@ -5,9 +5,12 @@ export const WalletButtonBlock = styled.button`
   width: 200px;
   height: 50px;
   margin-right: 2rem;
+
   border: none;
   border-radius: 8px;
+
   background: var(--blue);
+
   color: white;
 
   &:hover {

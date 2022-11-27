@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const PopupBlock = styled.div`
-  width: 300px;
-  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,9 +8,13 @@ export const PopupBlock = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
-  border-radius: 16px;
   z-index: 2;
+
+  width: 300px;
+  height: 300px;
+
+  border-radius: 16px;
+  background: white;
 
   img {
     width: 60px;
@@ -34,8 +36,10 @@ export const PopupBlock = styled.div`
     position: absolute;
     top: 15px;
     right: 20px;
-    background: none;
+
     border: none;
+    background: none;
+
     font-size: 1.3rem;
 
     &:hover {
@@ -48,8 +52,10 @@ export const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
+
   width: 100vw;
   height: 100vh;
+
   background: rgba(0, 0, 0, 0.1);
-  z-index: 1;
 `;
